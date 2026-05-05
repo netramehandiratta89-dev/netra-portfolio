@@ -1,0 +1,60 @@
+.aurora {
+  background:
+    radial-gradient(circle at 18% 15%, rgba(25, 211, 218, 0.35), transparent 28%),
+    radial-gradient(circle at 78% 18%, rgba(247, 215, 148, 0.2), transparent 25%),
+    radial-gradient(circle at 50% 80%, rgba(124, 58, 237, 0.28), transparent 32%);
+}
+
+.typing::after {
+  content: '|';
+  animation: blink 1s infinite;
+  color: #19d3da;
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+.float-slow {
+  animation: float 8s ease-in-out infinite;
+}
+
+.float-fast {
+  animation: float 5s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-18px); }
+}
+
+.noise {
+  background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+  background-size: 42px 42px;
+}
+
+.scanline {
+  position: relative;
+}
+
+.scanline::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, transparent 20%, rgba(255,255,255,0.18) 45%, transparent 70%);
+  transform: translateX(-120%);
+  animation: scan 5.8s ease-in-out infinite;
+}
+
+@keyframes scan {
+  0%, 38% { transform: translateX(-120%); }
+  62%, 100% { transform: translateX(120%); }
+}
+
+.spin-slow {
+  animation: spinSlow 18s linear infinite;
+}
+
+@keyframes spinSlow {
+  to { transform: rotate(360deg); }
+}

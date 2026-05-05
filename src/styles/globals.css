@@ -1,0 +1,79 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+  --glass: rgba(255, 255, 255, 0.08);
+  --line: rgba(255, 255, 255, 0.14);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: Inter, system-ui, sans-serif;
+  background: #08090f;
+}
+
+body::selection {
+  background: rgba(25, 211, 218, 0.3);
+}
+
+@layer components {
+  .section {
+    @apply relative mx-auto w-full max-w-7xl px-5 py-24 sm:px-8 lg:px-10;
+  }
+
+  .eyebrow {
+    @apply mb-4 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-semibold uppercase tracking-[0.24em] text-plasma backdrop-blur;
+  }
+
+  .headline {
+    @apply max-w-4xl text-4xl font-black leading-tight text-zinc-950 dark:text-white sm:text-6xl;
+  }
+
+  .muted {
+    @apply text-zinc-600 dark:text-zinc-400;
+  }
+
+  .glass {
+    @apply border border-white/10 bg-white/70 shadow-luxury backdrop-blur-2xl dark:bg-white/[0.07];
+  }
+
+  .premium-card {
+    @apply glass relative overflow-hidden rounded-lg p-6 transition duration-300 hover:-translate-y-1 hover:border-plasma/50 hover:shadow-glow;
+  }
+
+  .premium-card::before {
+    content: '';
+    @apply pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-plasma/70 to-transparent opacity-70;
+  }
+
+  .metric-card {
+    @apply premium-card bg-gradient-to-br from-white/80 to-white/40 dark:from-white/[0.09] dark:to-white/[0.03];
+  }
+
+  .premium-button {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-bold transition duration-300 active:scale-95;
+  }
+
+  .button-primary {
+    @apply premium-button bg-zinc-950 text-white shadow-glow hover:bg-plasma hover:text-ink dark:bg-white dark:text-ink;
+  }
+
+  .button-ghost {
+    @apply premium-button border border-zinc-900/10 bg-white/50 text-zinc-950 hover:border-plasma hover:text-plasma dark:border-white/15 dark:bg-white/5 dark:text-white;
+  }
+
+  .icon-button {
+    @apply inline-flex h-11 w-11 items-center justify-center rounded-full border border-zinc-900/10 bg-white/70 text-zinc-950 transition hover:border-plasma hover:text-plasma dark:border-white/10 dark:bg-white/10 dark:text-white;
+  }
+
+  .admin-input {
+    @apply w-full rounded-lg border border-white/10 bg-white/5 px-4 py-3 text-sm outline-none transition focus:border-plasma;
+  }
+}
