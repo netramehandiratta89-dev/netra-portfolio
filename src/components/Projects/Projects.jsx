@@ -24,13 +24,13 @@ export default function Projects() {
           <Reveal key={project.title} className="premium-card group overflow-hidden p-0">
             <div className="relative h-64 overflow-hidden">
               <img src={project.image} alt={`${project.title} preview`} className="absolute inset-0 h-full w-full object-cover" />
-              <div className="absolute inset-0 bg-gradient-to-br from-ink/20 via-ink/35 to-plasma/25" />
-              <div className="absolute inset-8 rounded-lg border border-white/20 bg-ink/45 p-5 text-white backdrop-blur-md transition duration-500 group-hover:scale-105 group-hover:border-plasma/50">
-                <div className="h-8 w-28 rounded-full bg-white/20" />
-                <div className="mt-8 h-20 rounded-lg bg-white/10" />
-                <div className="mt-4 grid grid-cols-3 gap-3">
-                  <div className="h-14 rounded-lg bg-white/10" /><div className="h-14 rounded-lg bg-white/10" /><div className="h-14 rounded-lg bg-white/10" />
+              <div className="absolute inset-0 bg-gradient-to-t from-ink/70 via-ink/10 to-transparent" />
+              <div className="absolute bottom-5 left-5 right-5 flex items-center justify-between gap-4 rounded-lg border border-white/15 bg-ink/55 px-4 py-3 text-white backdrop-blur-xl transition duration-500 group-hover:border-plasma/50 group-hover:bg-ink/75">
+                <div>
+                  <div className="text-xs font-black uppercase tracking-[0.2em] text-plasma">Preview</div>
+                  <div className="text-sm font-bold">{project.title}</div>
                 </div>
+                <ExternalLink size={18} className="text-champagne" />
               </div>
             </div>
             <div className="p-6">
