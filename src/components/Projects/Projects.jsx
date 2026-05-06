@@ -99,9 +99,8 @@ export default function Projects() {
               </div>
             </div>
           </Reveal>
-        ))
-      )}
-    </div>
+        ))}
+      </div>
     </section>
   );
 }
