@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
-import { supabase } from './supabaseClient';
-import { skillCategories } from '../utils/constants';
+import { supabase } from '../supabase/supabaseClient';
 
 const table = 'skills';
 
