@@ -1,6 +1,7 @@
 import Reveal from '../components/UI/Reveal.jsx';
 import { useAsyncData } from '../hooks/useAsyncData.js';
 import { fetchGitHubActivity, githubConfig } from './githubService.js';
+import { RefreshCw } from 'lucide-react';
 
 const fallbackActivity = {
   cells: Array.from({ length: 91 }, (_, index) => ({ date: '', count: (index * 17) % 5, level: (index * 17) % 5 })),
@@ -9,7 +10,7 @@ const fallbackActivity = {
 };
 
 export default function GitHubGraph() {
-  const { data: activity, loading, error } = useAsyncData(fetchGitHubActivity, fallbackActivity);
+  const { data: activity, loading, error, lastUpdated } = useAsyncData(fetchGitHubActivity, fallbackActivity, { autoRefresh: 300000 });
   const { cells, total, source } = activity;
   const hasActivity = total > 0;
 
@@ -45,7 +46,7 @@ export default function GitHubGraph() {
           ))}
         </div>
         <div className="mt-6 flex flex-col gap-3 text-sm text-zinc-600 dark:text-zinc-400 sm:flex-row sm:items-center sm:justify-between">
-          <span>{hasActivity ? `Showing ${source.toLowerCase()} from the last 91 days.` : 'No recent public GitHub activity was returned yet; this will brighten as new public updates appear.'}</span>
+          <span>{hasActivity ? `Showing ${source.toLowerCase()} from the last 91 days.` : 'No recent public GitHub activity was returned yet; this will brighten as new public updates appear.'} {lastUpdated && <span className="ml-2 text-xs text-zinc-500">Updated {lastUpdated.toLocaleTimeString()}</span>}</span>
           <a className="font-bold text-plasma" href={githubConfig.profileUrl} target="_blank" rel="noreferrer">Open GitHub</a>
         </div>
       </Reveal>
