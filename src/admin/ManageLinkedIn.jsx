@@ -1,6 +1,7 @@
-import { Linkedin, ExternalLink, Trash2, Search, Link2 } from 'lucide-react';
+import { ExternalLink, Trash2, Search, Link2 } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { supabase } from '../supabase/supabaseClient';
+import { toLinkedInEmbedUrl } from '../utils/linkedin.js';
 
 export default function ManageLinkedIn() {
   const [posts, setPosts] = useState([]);
@@ -29,40 +30,20 @@ export default function ManageLinkedIn() {
     fetchPosts();
   }, []);
 
-  async function extractPostInfo(url) {
-    const patterns = [
-      /linkedin\.com\/posts\/([^-]+)-(\d+)/,
-      /linkedin\.com\/feed\/update\/urn:li:activity:(\d+)/,
-      /linkedin\.com\/in\/[^\/]+\/detail\/activity\/(\d+)/
-    ];
-    
-    for (const pattern of patterns) {
-      const match = url.match(pattern);
-      if (match) {
-        return {
-          postId: match[1] || match[2],
-          slug: match[1] || match[2]
-        };
-      }
-    }
-    return null;
-  }
-
   async function handleAddFromUrl() {
     if (!urlInput.includes('linkedin.com')) return;
     
     setAdding(true);
     
     try {
-      const postInfo = await extractPostInfo(urlInput);
+      const embedUrl = toLinkedInEmbedUrl(urlInput);
       
       const post = {
         title: 'LinkedIn Post',
         url: urlInput,
         category: 'Post',
         date: new Date().toLocaleDateString('en-US', { month: 'short', year: 'numeric' }),
-        body: 'View post on LinkedIn',
-        slug: postInfo?.slug || Date.now().toString()
+        body: embedUrl ? 'Embedded LinkedIn post.' : 'View post on LinkedIn'
       };
 
       const { error } = await supabase.from('linkedin_posts').insert([post]);
@@ -85,8 +66,6 @@ export default function ManageLinkedIn() {
       console.error('Error:', err);
     }
   }
-
-  const categories = ['Achievement', 'Hackathon', 'Leadership', 'Learning', 'Community', 'Innovation', 'Event Management'];
 
   return (
     <div className="space-y-6">
@@ -167,12 +146,18 @@ export default function ManageLinkedIn() {
                     
                     {post.url && (
                       <div className="mt-4">
-                        <iframe
-                          src={`https://www.linkedin.com/embed/feed/update/${post.slug}`}
-                          className="w-full rounded-lg border-0"
-                          style={{ height: '300px', background: '#0d1117' }}
-                          title="LinkedIn Post"
-                        />
+                        {toLinkedInEmbedUrl(post.url) ? (
+                          <iframe
+                            src={toLinkedInEmbedUrl(post.url)}
+                            className="w-full rounded-lg border-0"
+                            style={{ height: '300px', background: '#0d1117' }}
+                            title="LinkedIn Post"
+                          />
+                        ) : (
+                          <div className="rounded-lg border border-white/10 bg-white/5 px-4 py-3 text-sm text-white/60">
+                            Couldn’t generate an embed from this URL. Use “Embed this post” on LinkedIn and paste the iframe code here.
+                          </div>
+                        )}
                         <a 
                           className="mt-3 inline-flex items-center gap-2 text-sm font-bold text-plasma hover:underline" 
                           href={post.url} 
