@@ -65,13 +65,18 @@ export function useExperiences(options = {}) {
     return { error };
   };
 
+  const refresh = async () => {
+    setLoading(true);
+    await fetchExperiences();
+  };
+
   return {
     experiences,
     loading,
     error,
-    addExperience,
-    updateExperience,
-    deleteExperience,
-    refetch: fetchExperiences
+    create: addExperience,
+    update: updateExperience,
+    remove: deleteExperience,
+    refresh
   };
 }

@@ -47,6 +47,11 @@ export function useProjects(options = {}) {
     return () => interval && clearInterval(interval);
   }, [autoRefresh, tag]);
 
+  const refresh = async () => {
+    setLoading(true);
+    await fetchProjects();
+  };
+
   const addProject = async (project) => {
     const { data, error } = await supabase.from(table).insert(project).select().single();
     if (!error && data) setProjects((prev) => [data, ...prev]);
@@ -74,9 +79,9 @@ export function useProjects(options = {}) {
     loading,
     error,
     tags,
-    addProject,
-    updateProject,
-    deleteProject,
-    refetch: fetchProjects
+    create: addProject,
+    update: updateProject,
+    remove: deleteProject,
+    refresh
   };
 }

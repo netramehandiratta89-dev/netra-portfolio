@@ -100,8 +100,8 @@ export default function Projects() {
             </div>
           </Reveal>
         ))
-        )}
-      </div>
+      )}
+    </div>
     </section>
   );
 }

@@ -1,13 +1,17 @@
-import { BarChart3, FileText, FolderKanban, GraduationCap, LogOut, MessageSquare, Sparkles } from 'lucide-react';
+import { BarChart3, Briefcase, FileText, FolderKanban, GraduationCap, Layout, Linkedin, LogOut, MessageSquare, Quote, Sparkles } from 'lucide-react';
 import { NavLink, Outlet, useNavigate } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth.js';
 
 const nav = [
   ['Overview', '/admin', BarChart3],
+  ['Website', '/admin/website', Layout],
   ['Projects', '/admin/projects', FolderKanban],
   ['Skills', '/admin/skills', Sparkles],
+  ['Experience', '/admin/experience', Briefcase],
+  ['LinkedIn', '/admin/linkedin', Linkedin],
   ['Blogs', '/admin/blogs', FileText],
   ['Certificates', '/admin/certificates', GraduationCap],
+  ['Testimonials', '/admin/testimonials', Quote],
   ['Messages', '/admin/messages', MessageSquare]
 ];
 
